@@ -77,3 +77,52 @@
 1. **Clone the repository**
 ```bash
 git clone https://github.com/KareemGhorabb/Talla-Perfumes.git
+
+Install dependencies
+
+cd talla
+npm install
+
+
+Setup environment variables
+
+Create .env file and add API keys for AI services, database, and payment gateway.
+
+Run the development server
+
+npm run dev
+
+
+Open http://localhost:3000
+ to view the website.
+
+💡 Contribution
+
+We welcome contributions from developers, designers, and AI enthusiasts. Feel free to:
+
+Report issues
+
+Suggest features
+
+Submit pull requests
+
+📜 License
+
+This project is licensed under the MIT License. See LICENSE file for details.
+
+📞 Contact
+
+For support, inquiries, or collaboration:
+
+Email: 
+
+Website: 
+
+GitHub: https://github.com/KareemGhorabb/Talla-Perfumes.git
+
+✨ Notes
+
+This project aims to merge AI personalization with luxury e-commerce, targeting Gen Z consumers. Interactive features, AI scent recommendations, and the custom perfume builder are key differentiators.
+
+
+
