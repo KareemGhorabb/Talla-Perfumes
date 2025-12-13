@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your own custom perfume in TALLA's Scent Lab - Mix notes, design your bottle, and get an AI-generated name">
+  <title>Scent Lab | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .lab-page { min-height: 100vh; background: var(--gradient-dark); padding-top: 100px; padding-bottom: 4rem; }
+    .lab-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .lab-header { text-align: center; margin-bottom: 3rem; }
+    
+    .lab-grid { display: grid; grid-template-columns: 1fr 400px; gap: 3rem; align-items: start; }
+    
+    /* Bottle Preview */
+    .bottle-preview { position: sticky; top: 100px; background: linear-gradient(135deg, #1A0B2E 0%, #2D1B4E 100%); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 2rem; text-align: center; }
+    .bottle-container { position: relative; height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); border-radius: var(--radius-lg); padding: 1rem; }
+    
+    /* 3D Bottle Structure */
+    .bottle-3d { position: relative; width: 180px; height: 280px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(-5px); } 50% { transform: translateY(5px); } }
+    
+    .bottle-cap { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 45px; border-radius: 8px 8px 0 0; background: var(--bottle-color, #D4AF37); z-index: 3; }
+    .bottle-cap::after { content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 45px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 4px; }
+    
+    .bottle-neck { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); width: 45px; height: 30px; background: var(--bottle-color, #D4AF37); opacity: 0.9; z-index: 2; }
+    
+    .bottle-body { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 150px; height: 190px; border-radius: 12px; background: linear-gradient(135deg, var(--bottle-color, #D4AF37) 0%, var(--bottle-color-dark, #B8952E) 100%); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); z-index: 1; overflow: hidden; }
+    
+    .bottle-liquid { position: absolute; bottom: 0; left: 0; right: 0; height: 85%; background: var(--bottle-color, #D4AF37); opacity: 0.8; border-radius: 0 0 12px 12px; }
+    
+    .bottle-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; background: white; border-radius: 8px; padding: 15px 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 5; }
+    .bottle-label-logo { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    .bottle-label-icon { width: 24px; height: 24px; background: linear-gradient(135deg, #D4AF37 0%, #B8952E 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .bottle-label-icon i { color: white; font-size: 10px; }
+    .bottle-label-brand { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 0.2em; color: #B8952E; text-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+    .bottle-label-divider { border-top: 1px solid #eee; margin: 8px 0; }
+    .bottle-label-name { font-size: 10px; font-weight: 600; color: #1a1a1a; line-height: 1.3; }
+    .bottle-label-family { font-size: 8px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .bottle-shimmer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%); transform: translateX(-100%); animation: shimmer 3s ease-in-out infinite; border-radius: 12px; pointer-events: none; }
+    @keyframes shimmer { 0% { transform: translateX(-100%); } 50%, 100% { transform: translateX(200%); } }
+    
+    .bottle-bottom { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 135px; height: 15px; background: var(--bottle-color, #D4AF37); opacity: 0.7; border-radius: 0 0 10px 10px; z-index: 0; }
+    
+    .scent-waves { position: absolute; top: 0; left: 50%; transform: translateX(-50%); pointer-events: none; }
+    .wave { position: absolute; width: 20px; height: 20px; border-radius: 50%; animation: wave-rise 2s ease-out infinite; opacity: 0; }
+    @keyframes wave-rise { 0% { transform: translateY(0) scale(1); opacity: 0.8; } 100% { transform: translateY(-100px) scale(2); opacity: 0; } }
+    
+    /* Bottle Color Selector */
+    .color-selector { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .color-option { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; position: relative; }
+    .color-option:hover { transform: scale(1.1); }
+    .color-option.active { border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+    .color-option::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: inherit; }
+    
+    .bottle-name { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem; min-height: 2.2rem; color: white; }
+    .scent-family { color: var(--color-gold); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .selected-notes { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; min-height: 32px; margin-bottom: 1.5rem; }
+    .selected-note { padding: 0.25rem 0.75rem; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-full); font-size: 0.8rem; color: rgba(255,255,255,0.8); }
+    .bottle-price { font-family: var(--font-display); font-size: 2rem; color: var(--color-champagne); margin-bottom: 1.5rem; }
+    
+    /* Note Selector */
+    .note-section { margin-bottom: 2.5rem; }
+    .note-section h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .note-section p { color: var(--color-lavender); font-size: 0.9rem; margin-bottom: 1rem; }
+    .note-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+    .note-item { padding: 1rem; background: var(--glass-bg); border: 2px solid var(--glass-border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.3s; text-align: center; }
+    .note-item:hover { border-color: var(--color-lavender); transform: translateY(-3px); }
+    .note-item.selected { border-color: var(--color-gold); background: rgba(212, 175, 55, 0.1); }
+    .note-item.disabled { opacity: 0.4; cursor: not-allowed; }
+    .note-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .note-name { font-size: 0.85rem; }
+    
+    /* AI Name Generator */
+    .name-generator { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 2rem; }
+    .name-generator h4 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .ai-names { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .ai-name { padding: 0.5rem 1rem; background: rgba(45, 27, 78, 0.5); border: 1px solid var(--glass-border); border-radius: var(--radius-full); cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+    .ai-name:hover { border-color: var(--color-gold); }
+    .ai-name.selected { background: var(--gradient-gold); color: var(--color-midnight); border-color: transparent; }
+    
+    .custom-name { margin-top: 1rem; }
+    .custom-name input { width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: white; font-size: 1rem; }
+    .custom-name input:focus { outline: none; border-color: var(--color-gold); }
+    
+    /* Summary */
+    .summary-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1rem; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: var(--color-lavender); }
+    .summary-row span:last-child { color: white; }
+    .summary-total { display: flex; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--glass-border); font-size: 1.2rem; }
+    .summary-total span:last-child { color: var(--color-champagne); font-family: var(--font-display); }
+    
+    @media (max-width: 900px) {
+      .lab-grid { grid-template-columns: 1fr; }
+      .bottle-preview { position: static; order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="quiz.html" class="nav-link">Find Your Scent</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="lab-page">
+    <div class="lab-container">
+      <div class="lab-header">
+        <p class="section-label"><i class="fa-solid fa-flask"></i> Scent Lab</p>
+        <h1 class="section-title">Create Your <span class="text-gradient">Signature</span> Scent</h1>
+        <p class="section-subtitle">Mix notes, watch your bottle come to life, and get an AI-generated name</p>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Left: Note Selection -->
+        <div class="note-selector">
+          <!-- Top Notes -->
+          <div class="note-section">
+            <h3><i class="fa-solid fa-lemon"></i> Top Notes</h3>
+            <p>The first impression - light and bright, lasting 15-30 minutes</p>
+            <div class="note-grid" data-layer="top">
+              <div class="note-item" data-note="Bergamot" data-color="#9ACD32"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #9ACD32;"></i></span><span class="note-name">Bergamot</span></div>
+              <div class="note-item" data-note="Lemon" data-color="#FFF44F"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FFF44F;"></i></span><span class="note-name">Lemon</span></div>
+              <div class="note-item" data-note="Pink Pepper" data-color="#FF6B6B"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FF6B6B;"></i></span><span class="note-name">Pink Pepper</span></div>
+              <div class="note-item" data-note="Grapefruit" data-color="#FF6347"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FF6347;"></i></span><span class="note-name">Grapefruit</span></div>
+              <div class="note-item" data-note="Apple" data-color="#90EE90"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #90EE90;"></i></span><span class="note-name">Apple</span></div>
+              <div class="note-item" data-note="Pear" data-color="#D4E157"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #D4E157;"></i></span><span class="note-name">Pear</span></div>
+            </div>
+          </div>
+
+          <!-- Middle Notes -->
+          <div class="note-section">
+            <h3><i class="fa-solid fa-spa"></i> Heart Notes</h3>
+            <p>The heart of your fragrance - lasts 2-4 hours</p>
+            <div class="note-grid" data-layer="middle">
+              <div class="note-item" data-note="Rose" data-color="#FF69B4"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FF69B4;"></i></span><span class="note-name">Rose</span></div>
+              <div class="note-item" data-note="Jasmine" data-color="#FFFACD"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FFFACD;"></i></span><span class="note-name">Jasmine</span></div>
+              <div class="note-item" data-note="Orchid" data-color="#DA70D6"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #DA70D6;"></i></span><span class="note-name">Orchid</span></div>
+              <div class="note-item" data-note="Iris" data-color="#9370DB"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #9370DB;"></i></span><span class="note-name">Iris</span></div>
+              <div class="note-item" data-note="Lavender" data-color="#E6E6FA"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #E6E6FA;"></i></span><span class="note-name">Lavender</span></div>
+              <div class="note-item" data-note="Neroli" data-color="#FFA500"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FFA500;"></i></span><span class="note-name">Neroli</span></div>
+            </div>
+          </div>
+
+          <!-- Base Notes -->
+          <div class="note-section">
+            <h3><i class="fa-solid fa-tree"></i> Base Notes</h3>
+            <p>The foundation - lingers for 6+ hours</p>
+            <div class="note-grid" data-layer="base">
+              <div class="note-item" data-note="Vanilla" data-color="#F3E5AB"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #F3E5AB;"></i></span><span class="note-name">Vanilla</span></div>
+              <div class="note-item" data-note="Oud" data-color="#8B4513"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #8B4513;"></i></span><span class="note-name">Oud</span></div>
+              <div class="note-item" data-note="Musk" data-color="#D3D3D3"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #D3D3D3;"></i></span><span class="note-name">Musk</span></div>
+              <div class="note-item" data-note="Amber" data-color="#FFBF00"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #FFBF00;"></i></span><span class="note-name">Amber</span></div>
+              <div class="note-item" data-note="Sandalwood" data-color="#C19A6B"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #C19A6B;"></i></span><span class="note-name">Sandalwood</span></div>
+              <div class="note-item" data-note="Cedar" data-color="#8B0000"><span class="note-icon"><i class="fa-solid fa-circle" style="color: #8B0000;"></i></span><span class="note-name">Cedar</span></div>
+            </div>
+          </div>
+
+          <!-- AI Name Generator -->
+          <div class="name-generator">
+            <h4><i class="fa-solid fa-robot"></i> AI Name Suggestions</h4>
+            <div class="ai-names" id="aiNames">
+              <span class="ai-name">Select notes to generate names...</span>
+            </div>
+            <div class="custom-name">
+              <input type="text" id="customName" placeholder="Or type your own name...">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Bottle Preview -->
+        <div class="bottle-preview">
+          <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem; color: white;">Your Creation</h3>
+          
+          <div class="bottle-container">
+            <div class="scent-waves" id="scentWaves"></div>
+            <div class="bottle-3d" id="bottle3d">
+              <div class="bottle-cap"></div>
+              <div class="bottle-neck"></div>
+              <div class="bottle-body">
+                <div class="bottle-liquid"></div>
+                <div class="bottle-label">
+                  <div class="bottle-label-logo">
+                    <div class="bottle-label-icon"><i class="fa-solid fa-sparkles"></i></div>
+                  </div>
+                  <div class="bottle-label-brand">TALLA</div>
+                  <div class="bottle-label-divider"></div>
+                  <div class="bottle-label-name" id="labelName">Your Creation</div>
+                  <div class="bottle-label-family" id="labelFamily">Custom Blend</div>
+                </div>
+                <div class="bottle-shimmer" id="bottleShimmer"></div>
+              </div>
+              <div class="bottle-bottom"></div>
+            </div>
+          </div>
+          
+          <!-- Bottle Color Selector -->
+          <div class="color-selector" id="colorSelector">
+            <div class="color-option active" data-color="#D4AF37" data-dark="#B8952E" title="Gold" style="background: #D4AF37;"></div>
+            <div class="color-option" data-color="#E5B5A0" data-dark="#C99B86" title="Rose Gold" style="background: #E5B5A0;"></div>
+            <div class="color-option" data-color="#1A1A1A" data-dark="#0A0A0A" title="Midnight Black" style="background: #1A1A1A;"></div>
+            <div class="color-option" data-color="#F0F0F0" data-dark="#D0D0D0" title="Crystal Clear" style="background: #F0F0F0;"></div>
+            <div class="color-option" data-color="#6A4C93" data-dark="#4A3473" title="Royal Purple" style="background: #6A4C93;"></div>
+            <div class="color-option" data-color="#50C878" data-dark="#30A858" title="Emerald" style="background: #50C878;"></div>
+          </div>
+          
+          <h3 class="bottle-name" id="bottleName">Your Creation</h3>
+          <p class="scent-family" id="scentFamily">Select notes to begin</p>
+          <div class="selected-notes" id="selectedNotes"></div>
+          <p class="bottle-price">$<span id="totalPrice">89</span></p>
+          
+          <div class="summary-card">
+            <div class="summary-row">
+              <span>Base Price</span>
+              <span>$89.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Premium Notes</span>
+              <span id="premiumPrice">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Bottle Size</span>
+              <span>50ml</span>
+            </div>
+            <div class="summary-total">
+              <span>Total</span>
+              <span>$<span id="finalPrice">89</span></span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <button class="btn btn-primary" id="orderBtn" disabled>Order Custom Bottle</button>
+            <button class="btn btn-secondary" id="saveBtn" disabled><i class="fa-solid fa-floppy-disk"></i> Save Your Scent</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Scent Lab Logic
+    const selectedNotes = { top: [], middle: [], base: [] };
+    const premiumNotes = ['Oud', 'Rose', 'Orchid', 'Iris'];
+    const basePrice = 89;
+    let customName = '';
+
+    // Note name generators
+    const namePatterns = {
+      romantic: ['Velvet', 'Whisper', 'Dream', 'Desire', 'Embrace'],
+      fresh: ['Breeze', 'Dawn', 'Clarity', 'Azure', 'Mist'],
+      woody: ['Shadow', 'Forest', 'Eclipse', 'Noir', 'Ember'],
+      oriental: ['Mystic', 'Arabian', 'Nights', 'Luxe', 'Divine']
+    };
+
+    // Initialize
+    document.querySelectorAll('.note-item').forEach(item => {
+      item.addEventListener('click', () => toggleNote(item));
+    });
+
+    document.getElementById('customName').addEventListener('input', (e) => {
+      customName = e.target.value;
+      updateBottleName();
+      updateButtons();
+    });
+
+    function toggleNote(item) {
+      const note = item.dataset.note;
+      const layer = item.closest('.note-grid').dataset.layer;
+      const maxPerLayer = 2;
+
+      if (item.classList.contains('selected')) {
+        item.classList.remove('selected');
+        selectedNotes[layer] = selectedNotes[layer].filter(n => n !== note);
+      } else {
+        if (selectedNotes[layer].length >= maxPerLayer) {
+          // Remove oldest selection
+          const oldNote = selectedNotes[layer].shift();
+          document.querySelector(`.note-item[data-note="${oldNote}"]`).classList.remove('selected');
+        }
+        item.classList.add('selected');
+        selectedNotes[layer].push(note);
+      }
+
+      updateUI();
+    }
+
+    function updateUI() {
+      updateSelectedNotes();
+      updateScentFamily();
+      updatePrice();
+      updateBottle();
+      generateAINames();
+      updateBottleName();
+      updateButtons();
+    }
+
+    function updateSelectedNotes() {
+      const container = document.getElementById('selectedNotes');
+      const allNotes = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+      container.innerHTML = allNotes.map(n => `<span class="selected-note">${n}</span>`).join('');
+    }
+
+    function updateScentFamily() {
+      const el = document.getElementById('scentFamily');
+      const all = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+      
+      if (all.length === 0) {
+        el.textContent = 'Select notes to begin';
+        return;
+      }
+
+      // Determine family
+      const florals = ['Rose', 'Jasmine', 'Orchid', 'Lavender', 'Iris', 'Neroli'];
+      const woods = ['Oud', 'Sandalwood', 'Cedar'];
+      const oriental = ['Vanilla', 'Amber', 'Musk'];
+      const fresh = ['Bergamot', 'Lemon', 'Grapefruit', 'Apple', 'Pear'];
+
+      let floralCount = all.filter(n => florals.includes(n)).length;
+      let woodCount = all.filter(n => woods.includes(n)).length;
+      let orientalCount = all.filter(n => oriental.includes(n)).length;
+      let freshCount = all.filter(n => fresh.includes(n)).length;
+
+      let family = 'Unique Blend';
+      let max = Math.max(floralCount, woodCount, orientalCount, freshCount);
+      if (max > 0) {
+        if (floralCount === max) family = '<i class="fa-solid fa-spa"></i> Floral';
+        else if (woodCount === max) family = '<i class="fa-solid fa-tree"></i> Woody';
+        else if (orientalCount === max) family = '<i class="fa-solid fa-star"></i> Oriental';
+        else if (freshCount === max) family = '<i class="fa-solid fa-lemon"></i> Fresh';
+      }
+
+      el.innerHTML = family;
+    }
+
+    function updatePrice() {
+      const all = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+      const premiumCount = all.filter(n => premiumNotes.includes(n)).length;
+      const premium = premiumCount * 15;
+      const total = basePrice + premium;
+
+      document.getElementById('premiumPrice').textContent = `$${premium.toFixed(2)}`;
+      document.getElementById('totalPrice').textContent = total;
+      document.getElementById('finalPrice').textContent = total;
+    }
+
+    function updateBottle() {
+      const bottle3d = document.getElementById('bottle3d');
+      const waves = document.getElementById('scentWaves');
+      const shimmer = document.getElementById('bottleShimmer');
+      const labelName = document.getElementById('labelName');
+      const labelFamily = document.getElementById('labelFamily');
+      const all = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+
+      // Update label name and family
+      const name = customName || (window.currentAIName || 'Your Creation');
+      labelName.textContent = name;
+      
+      // Get family text
+      const florals = ['Rose', 'Jasmine', 'Orchid', 'Lavender', 'Iris', 'Neroli'];
+      const woods = ['Oud', 'Sandalwood', 'Cedar'];
+      const oriental = ['Vanilla', 'Amber', 'Musk'];
+      const fresh = ['Bergamot', 'Lemon', 'Grapefruit', 'Apple', 'Pear'];
+      
+      let familyText = 'Custom Blend';
+      if (all.length > 0) {
+        let floralCount = all.filter(n => florals.includes(n)).length;
+        let woodCount = all.filter(n => woods.includes(n)).length;
+        let orientalCount = all.filter(n => oriental.includes(n)).length;
+        let freshCount = all.filter(n => fresh.includes(n)).length;
+        let max = Math.max(floralCount, woodCount, orientalCount, freshCount);
+        if (max > 0) {
+          if (floralCount === max) familyText = 'Floral';
+          else if (woodCount === max) familyText = 'Woody';
+          else if (orientalCount === max) familyText = 'Oriental';
+          else if (freshCount === max) familyText = 'Fresh';
+        }
+      }
+      labelFamily.textContent = familyText;
+
+      // Show/hide shimmer based on selection
+      if (all.length > 0) {
+        shimmer.style.display = 'block';
+      } else {
+        shimmer.style.display = 'none';
+      }
+
+      // Generate scent waves
+      waves.innerHTML = '';
+      all.forEach((note, i) => {
+        const item = document.querySelector(`.note-item[data-note="${note}"]`);
+        const noteColor = item?.dataset.color || '#D4AF37';
+        for (let j = 0; j < 3; j++) {
+          const wave = document.createElement('div');
+          wave.className = 'wave';
+          wave.style.background = noteColor;
+          wave.style.left = (Math.random() * 60 - 30) + 'px';
+          wave.style.animationDelay = (i * 0.3 + j * 0.5) + 's';
+          waves.appendChild(wave);
+        }
+      });
+    }
+
+    // Color Selector
+    function initColorSelector() {
+      const colorOptions = document.querySelectorAll('.color-option');
+      const bottle3d = document.getElementById('bottle3d');
+      
+      colorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          colorOptions.forEach(o => o.classList.remove('active'));
+          option.classList.add('active');
+          
+          const color = option.dataset.color;
+          const darkColor = option.dataset.dark;
+          
+          bottle3d.style.setProperty('--bottle-color', color);
+          bottle3d.style.setProperty('--bottle-color-dark', darkColor);
+        });
+      });
+    }
+
+    // Initialize color selector
+    initColorSelector();
+
+    function generateAINames() {
+      const container = document.getElementById('aiNames');
+      const all = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+
+      if (all.length === 0) {
+        container.innerHTML = '<span class="ai-name">Select notes to generate names...</span>';
+        return;
+      }
+
+      // Get scent family for name generation
+      const florals = ['Rose', 'Jasmine', 'Orchid', 'Lavender', 'Iris'];
+      const woods = ['Oud', 'Sandalwood', 'Cedar'];
+      
+      let category = 'romantic';
+      if (all.some(n => woods.includes(n))) category = 'woody';
+      else if (all.some(n => florals.includes(n))) category = 'romantic';
+      else if (all.includes('Amber') || all.includes('Vanilla')) category = 'oriental';
+      else category = 'fresh';
+
+      const prefixes = namePatterns[category];
+      const suffixes = ['Essence', 'Aura', 'Elixir', 'Noir', 'Bloom', all[0] || 'Love'];
+
+      const names = [];
+      for (let i = 0; i < 4; i++) {
+        const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+        names.push(`${prefix} ${suffix}`);
+      }
+
+      container.innerHTML = names.map(name => 
+        `<span class="ai-name" onclick="selectAIName('${name}')">${name}</span>`
+      ).join('');
+      
+      // Store first name as default
+      if (!customName && names.length > 0) {
+        window.currentAIName = names[0];
+        updateBottle();
+      }
+    }
+
+    function selectAIName(name) {
+      document.querySelectorAll('.ai-name').forEach(n => n.classList.remove('selected'));
+      event.target.classList.add('selected');
+      customName = name;
+      document.getElementById('customName').value = name;
+      updateBottleName();
+      updateButtons();
+    }
+
+    function updateBottleName() {
+      const el = document.getElementById('bottleName');
+      const name = customName || window.currentAIName || 'Your Creation';
+      el.textContent = name;
+      // Also update the label on the bottle
+      document.getElementById('labelName').textContent = name;
+    }
+
+    function updateButtons() {
+      const all = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+      const hasNotes = all.length >= 3;
+      // Allow either custom name OR AI-generated name
+      const hasName = (customName && customName.trim().length > 0) || (window.currentAIName && window.currentAIName.trim().length > 0);
+
+      document.getElementById('orderBtn').disabled = !hasNotes;
+      document.getElementById('saveBtn').disabled = !hasNotes;
+    }
+
+    // Order button
+    document.getElementById('orderBtn').addEventListener('click', () => {
+      const activeColor = document.querySelector('.color-option.active');
+      const scent = {
+        id: Date.now(),
+        name: customName || window.currentAIName,
+        notes: {...selectedNotes},
+        price: parseInt(document.getElementById('finalPrice').textContent),
+        type: 'custom',
+        bottleColor: activeColor ? activeColor.dataset.color : '#D4AF37',
+        image: 'https://images.unsplash.com/photo-1705899853374-d91c048b81d2?w=400'
+      };
+
+      // Add to cart
+      let cart = JSON.parse(localStorage.getItem('talla_cart')) || [];
+      cart.push({ ...scent, qty: 1 });
+      localStorage.setItem('talla_cart', JSON.stringify(cart));
+
+      alert(`"${scent.name}" has been added to your cart!`);
+      window.location.href = 'cart.html';
+    });
+
+    // Save button
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const activeColor = document.querySelector('.color-option.active');
+      const name = customName || window.currentAIName;
+      const scent = {
+        id: Date.now(),
+        name: name,
+        notes: {...selectedNotes},
+        price: parseInt(document.getElementById('finalPrice').textContent),
+        bottleColor: activeColor ? activeColor.dataset.color : '#D4AF37',
+        createdAt: new Date().toISOString()
+      };
+
+      let saved = JSON.parse(localStorage.getItem('talla_saved_scents')) || [];
+      saved.push(scent);
+      localStorage.setItem('talla_saved_scents', JSON.stringify(saved));
+
+      alert(`"${name}" has been saved to your account!`);
+    });
+  </script>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items loaded via JS -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>
