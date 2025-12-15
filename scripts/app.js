@@ -120,6 +120,46 @@ const products = [
     rating: 4.8,
     reviews: 203,
     similarTo: 'Yves Saint Laurent Black Opium'
+  },
+  {
+    id: '7',
+    name: 'Crystal Mist',
+    brand: 'TALLA',
+    price: 159,
+    category: 'fresh',
+    badge: 'NEW',
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8cGVyZnVtZSUyMGJvdHRsZXxlbnwxfHx8fDE3NjUyMjY2MDV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    description: 'A fresh aquatic scent with mineral notes and white florals',
+    story: 'Captured from morning dew on crystal caves, this fragrance embodies pure clarity.',
+    mood: 'Clean, Refreshing, Ethereal',
+    scentFamily: 'fresh',
+    notes: 'Sea Breeze, Lily, Musk',
+    top: ['Sea Salt', 'Bergamot', 'White Tea'],
+    middle: ['Water Lily', 'Peony', 'Freesia'],
+    base: ['White Musk', 'Driftwood', 'Ambergris'],
+    rating: 4.7,
+    reviews: 89,
+    similarTo: 'Issey Miyake L\'Eau d\'Issey'
+  },
+  {
+    id: '8',
+    name: 'Amber Mystique',
+    brand: 'TALLA',
+    price: 179,
+    category: 'oriental',
+    badge: 'NEW',
+    image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8cGVyZnVtZSUyMGJvdHRsZXxlbnwxfHx8fDE3NjUyMjY2MDV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    description: 'A warm, sensual blend of precious amber and exotic resins',
+    story: 'Ancient amber treasures melted into liquid gold, revealing centuries of mystique.',
+    mood: 'Warm, Sensual, Enchanting',
+    scentFamily: 'oriental',
+    notes: 'Amber, Benzoin, Vanilla',
+    top: ['Saffron', 'Cardamom', 'Orange Peel'],
+    middle: ['Amber', 'Labdanum', 'Orris'],
+    base: ['Benzoin', 'Vanilla', 'Sandalwood'],
+    rating: 4.9,
+    reviews: 67,
+    similarTo: 'Maison Francis Kurkdjian Grand Soir'
   }
 ];
 window.products = products;
