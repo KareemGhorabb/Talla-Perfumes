@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TALLA luxury perfume - Discover the fragrance notes, story, and add to your collection">
+  <title>Product | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/product.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="quiz.html" class="nav-link">Find Your Scent</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="product-page">
+    <div class="container">
+      <div class="product-layout">
+        <!-- Gallery -->
+        <div class="product-gallery">
+          <div class="main-image" id="mainImage">
+            <span class="image-badge" id="productBadge"></span>
+            <img id="productImage" src="" alt="">
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="product-details">
+          <p class="product-brand" id="productBrand">TALLA</p>
+          <h1 class="product-title" id="productName">Loading...</h1>
+          <p class="product-tagline" id="productTagline">"A captivating fragrance"</p>
+          
+          <div class="product-rating">
+            <span class="stars" id="productStars">★★★★★</span>
+            <span class="rating-count" id="productReviews">(0 reviews)</span>
+          </div>
+          
+          <p class="product-price-lg">$<span id="productPrice">0</span></p>
+
+          <!-- Similar To -->
+          <div class="similar-to" id="similarTo" style="display: none;">
+            <p>💡 <strong>Similar to:</strong> <span id="similarToName"></span></p>
+          </div>
+
+          <!-- Fragrance Pyramid -->
+          <div class="pyramid">
+            <h4>✨ Fragrance Pyramid</h4>
+            <div class="pyramid-layers">
+              <div class="pyramid-layer">
+                <span class="layer-label">Top</span>
+                <div class="layer-notes" id="topNotes"></div>
+              </div>
+              <div class="pyramid-layer">
+                <span class="layer-label">Heart</span>
+                <div class="layer-notes" id="middleNotes"></div>
+              </div>
+              <div class="pyramid-layer">
+                <span class="layer-label">Base</span>
+                <div class="layer-notes" id="baseNotes"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="size-selector">
+            <h4>Select Size</h4>
+            <div class="size-options">
+              <div class="size-option" data-size="30" data-multiplier="0.7">
+                <div class="size-ml">30ml</div>
+                <div class="size-price" id="price30">$0</div>
+              </div>
+              <div class="size-option selected" data-size="50" data-multiplier="1">
+                <div class="size-ml">50ml</div>
+                <div class="size-price" id="price50">$0</div>
+              </div>
+              <div class="size-option" data-size="100" data-multiplier="1.6">
+                <div class="size-ml">100ml</div>
+                <div class="size-price" id="price100">$0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="product-detail-actions">
+            <button class="btn btn-primary" id="addToCartBtn">Add to Cart</button>
+            <button class="wishlist-btn-lg" id="wishlistBtn">🤍</button>
+          </div>
+
+          <!-- Story -->
+          <div class="story-section">
+            <h4>📖 The Story</h4>
+            <p id="productStory">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Similar Products -->
+      <div class="similar-section">
+        <h3>🤖 AI Recommends: <span class="text-gradient">Similar Scents</span></h3>
+        <div class="similar-grid" id="similarProducts"></div>
+      </div>
+
+
+
+    </div>
+  </main>
+
+  <script src="scripts/app.js"></script>
+  <script>
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id') || '1';
+
+    // Get products from app.js (global variable)
+    // const products is already defined in app.js, so we use it directly
+    
+    // Debugging
+    console.log('Product ID from URL:', productId);
+    console.log('Global products variable type:', typeof products);
+    if (typeof products !== 'undefined') {
+      console.log('Products array length:', products.length);
+      console.log('First product ID:', products[0]?.id);
+      console.log('Looking for product with ID:', productId);
+    } else {
+      console.error('Products variable is undefined!');
+    }
+
+    // Find product
+    const product = (typeof products !== 'undefined' ? products : []).find(p => p.id === productId) || (typeof products !== 'undefined' ? products[0] : null);
+    
+    console.log('Found product:', product);
+
+    if (!product) {
+       // Handle case where products are not loaded
+       console.error('Product not found for ID:', productId);
+       document.querySelector('.product-layout').innerHTML = `<div style="text-align:center; padding: 4rem;"><h2>Product not found (ID: ${productId})</h2><p>Please check console for details.</p><a href="products.html" class="btn btn-primary">Back to Shop</a></div>`;
+       throw new Error('Product not found');
+    }
+    let selectedSize = 50;
+    let selectedPrice = product.price;
+
+    // Populate page
+    document.title = `${product.name} | TALLA`;
+    document.getElementById('productImage').src = product.image;
+    document.getElementById('productImage').alt = product.name;
+    document.getElementById('productBadge').textContent = product.badge || '';
+    document.getElementById('productBadge').style.display = product.badge ? 'block' : 'none';
+    document.getElementById('productBrand').textContent = product.brand;
+    document.getElementById('productName').textContent = product.name;
+    document.getElementById('productTagline').textContent = `"${product.description}"`;
+    document.getElementById('productPrice').textContent = product.price;
+    
+    // Rating
+    const fullStars = Math.floor(product.rating || 5);
+    const starString = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+    document.getElementById('productStars').textContent = starString;
+    document.getElementById('productReviews').textContent = `(${product.reviews || 0} reviews)`;
+    
+    // Similar To
+    if (product.similarTo) {
+      document.getElementById('similarTo').style.display = 'block';
+      document.getElementById('similarToName').textContent = product.similarTo;
+    }
+    
+    // Story
+    document.getElementById('productStory').textContent = product.story || product.description;
+
+    // Fragrance pyramid
+    document.getElementById('topNotes').innerHTML = (product.top || ['Bergamot', 'Citrus']).map(n => `<span class="note-tag">${n}</span>`).join('');
+    document.getElementById('middleNotes').innerHTML = (product.middle || ['Rose', 'Jasmine']).map(n => `<span class="note-tag">${n}</span>`).join('');
+    document.getElementById('baseNotes').innerHTML = (product.base || ['Musk', 'Vanilla']).map(n => `<span class="note-tag">${n}</span>`).join('');
+
+    // Size prices
+    document.getElementById('price30').textContent = `$${Math.round(product.price * 0.7)}`;
+    document.getElementById('price50').textContent = `$${product.price}`;
+    document.getElementById('price100').textContent = `$${Math.round(product.price * 1.6)}`;
+
+    // Size selection
+    document.querySelectorAll('.size-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedSize = parseInt(opt.dataset.size);
+        selectedPrice = Math.round(product.price * parseFloat(opt.dataset.multiplier));
+        document.getElementById('productPrice').textContent = selectedPrice;
+      });
+    });
+
+    // Add to cart
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+      let cart = JSON.parse(localStorage.getItem('talla_cart')) || [];
+      const item = { ...product, size: selectedSize, price: selectedPrice, qty: 1 };
+      const existing = cart.find(c => c.id === product.id && c.size === selectedSize);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem('talla_cart', JSON.stringify(cart));
+      
+      // Update global cart UI (mini-cart)
+      if (typeof updateCartUI === 'function') {
+        updateCartUI();
+      }
+      
+      // Open mini-cart
+      const miniCart = document.getElementById('miniCart');
+      const cartOverlay = document.getElementById('cartOverlay');
+      if (miniCart && cartOverlay) {
+        miniCart.classList.add('active');
+        cartOverlay.classList.add('active');
+      }
+    });
+
+    // Wishlist
+    const wishlistBtn = document.getElementById('wishlistBtn');
+    // Use global wishlist from app.js
+    // let wishlist = JSON.parse(localStorage.getItem('talla_wishlist')) || [];
+    wishlistBtn.textContent = wishlist.includes(productId) ? '❤️' : '🤍';
+    
+    wishlistBtn.addEventListener('click', () => {
+      const index = wishlist.indexOf(productId);
+      if (index > -1) {
+        wishlist.splice(index, 1);
+        wishlistBtn.textContent = '🤍';
+      } else {
+        wishlist.push(productId);
+        wishlistBtn.textContent = '❤️';
+      }
+      localStorage.setItem('talla_wishlist', JSON.stringify(wishlist));
+    });
+
+    // Similar products
+    const similar = (typeof products !== 'undefined' ? products : []).filter(p => p.id !== productId && (p.category === product.category || p.scentFamily === product.scentFamily)).slice(0, 3);
+    const fallback = (typeof products !== 'undefined' ? products : []).filter(p => p.id !== productId).slice(0, 3);
+    const toShow = similar.length >= 2 ? similar : fallback;
+
+    document.getElementById('similarProducts').innerHTML = toShow.map(p => `
+      <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'" style="cursor: pointer;">
+        <div class="product-image">
+          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <div class="product-actions">
+             <button class="action-btn" onclick="event.stopPropagation(); addToCart('${p.id}')" title="Add to Cart">
+               <i class="fa-solid fa-bag-shopping"></i>
+             </button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">${p.brand}</p>
+          <h3 class="product-name">${p.name}</h3>
+          <p class="product-notes">${p.notes}</p>
+          <div class="product-footer">
+            <span class="product-price">$${p.price}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Initial UI update
+    if (typeof updateCartUI === 'function') {
+      updateCartUI();
+    }
+  </script>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items loaded via JS -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+</body>
+</html>
