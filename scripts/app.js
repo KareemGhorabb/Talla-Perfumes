@@ -1,8 +1,5 @@
 // TALLA - Main Application JavaScript
 
-// ===== Product Data (matching products.ts) =====
-// ===== Product Data (matching products.ts) =====
-// ===== Product Data (matching products.ts) =====
 const products = [
   {
     id: '1',
