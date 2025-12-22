@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact TALLA - Get in touch with us">
+  <title>Contact Us | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/contact.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="login.html" class="nav-icon" title="Account"><i class="fa-regular fa-user"></i></a>
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contact-page">
+    <div class="container">
+      <!-- Hero/About Section -->
+      <div class="contact-hero">
+        <p class="section-label">About Us</p>
+        <h1 class="section-title">Crafting <span class="text-gradient">Unforgettable</span> Scents</h1>
+        <p class="section-subtitle">TALLA is a luxury fragrance house dedicated to creating unique, memorable scents that tell your story. Founded with a passion for artisanal perfumery, we blend traditional craftsmanship with modern innovation.</p>
+        
+        <div class="values-row">
+          <span class="value-badge"><i class="fa-solid fa-leaf"></i> Sustainable</span>
+          <span class="value-badge"><i class="fa-solid fa-flask"></i> Artisan Crafted</span>
+          <span class="value-badge"><i class="fa-solid fa-heart"></i> Cruelty Free</span>
+        </div>
+      </div>
+
+      <!-- Contact Form Section -->
+        <div class="contact-form-wrapper">
+          <h2>Get in Touch</h2>
+          <p>Have a question or feedback? We'd love to hear from you!</p>
+          
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+
+        
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">TALLA</div>
+        <div class="footer-links">
+          <a href="products.html" class="footer-link">Shop</a>
+          <a href="scent-lab.html" class="footer-link">Scent Lab</a>
+          <a href="cart.html" class="footer-link">Cart</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+    </div>
+  </div>
+
+  <script src="scripts/app.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
