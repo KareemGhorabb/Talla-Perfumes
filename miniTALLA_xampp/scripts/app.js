@@ -72,7 +72,24 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   loadProducts();
   updateCartUI();
+  updateAccountIcon();
 });
+
+// Update account icon link based on login status
+function updateAccountIcon() {
+  const user = JSON.parse(localStorage.getItem('talla_user'));
+  const accountLinks = document.querySelectorAll('a.nav-icon[href="login.html"], a.nav-icon[href="account.html"]');
+  
+  accountLinks.forEach(link => {
+    if (user && user.email) {
+      link.href = 'account.html';
+      link.title = user.name || 'My Account';
+    } else {
+      link.href = 'login.html';
+      link.title = 'Sign In';
+    }
+  });
+}
 
 // Navbar scroll effect
 function initNavbar() {

@@ -271,22 +271,64 @@ document.getElementById('orderBtn').addEventListener('click', () => {
   window.location.href = 'cart.html';
 });
 
-// Save button
-document.getElementById('saveBtn').addEventListener('click', () => {
+// Save button - saves to backend
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  // Check if user is logged in
+  const user = JSON.parse(localStorage.getItem('talla_user'));
+  
+  if (!user || !user.email) {
+    if (confirm('You need to be logged in to save your scent. Would you like to sign in now?')) {
+      // Save current scent to localStorage temporarily so user doesn't lose work
+      const tempScent = {
+        name: customName || window.currentAIName,
+        notes: {...selectedNotes},
+        price: parseInt(document.getElementById('finalPrice').textContent)
+      };
+      localStorage.setItem('talla_temp_scent', JSON.stringify(tempScent));
+      window.location.href = 'login.html';
+    }
+    return;
+  }
+  
   const activeColor = document.querySelector('.color-option.active');
   const name = customName || window.currentAIName;
-  const scent = {
-    id: Date.now(),
+  const price = parseInt(document.getElementById('finalPrice').textContent);
+  
+  // Determine intensity based on notes count
+  const allNotes = [...selectedNotes.top, ...selectedNotes.middle, ...selectedNotes.base];
+  let intensity = 'light';
+  if (allNotes.length >= 5) intensity = 'intense';
+  else if (allNotes.length >= 3) intensity = 'balanced';
+  
+  // Prepare data for backend
+  const scentData = {
+    email: user.email,
     name: name,
-    notes: {...selectedNotes},
-    price: parseInt(document.getElementById('finalPrice').textContent),
-    bottleColor: activeColor ? activeColor.dataset.color : '#D4AF37',
-    createdAt: new Date().toISOString()
+    notes: allNotes,
+    topNotes: selectedNotes.top,
+    middleNotes: selectedNotes.middle,
+    baseNotes: selectedNotes.base,
+    intensity: intensity,
+    price: price
   };
-
-  let saved = JSON.parse(localStorage.getItem('talla_saved_scents')) || [];
-  saved.push(scent);
-  localStorage.setItem('talla_saved_scents', JSON.stringify(saved));
-
-  alert(`"${name}" has been saved to your account!`);
+  
+  try {
+    const response = await fetch('api/scents.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(scentData)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      alert(`"${name}" has been saved to your account!\n\nView it in My Account → My Scents`);
+    } else {
+      alert('Error saving scent: ' + result.message);
+    }
+  } catch (error) {
+    console.error('Error saving scent:', error);
+    alert('Failed to save scent. Please try again.');
+  }
 });
+

@@ -1,0 +1,81 @@
+/* Account Page Styles */
+.account-page { min-height: 100vh; background: var(--gradient-dark); padding-top: 100px; padding-bottom: 4rem; }
+.account-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; }
+
+/* Sidebar */
+.account-sidebar { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; height: fit-content; position: sticky; top: 100px; }
+.account-user { text-align: center; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); }
+.user-avatar { width: 80px; height: 80px; background: var(--gradient-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem; }
+.user-name { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.25rem; }
+.user-email { color: var(--color-lavender); font-size: 0.85rem; }
+.user-since { color: var(--color-medium-gray); font-size: 0.8rem; margin-top: 0.5rem; }
+
+.nav-menu { display: flex; flex-direction: column; gap: 0.5rem; }
+.nav-item { padding: 0.75rem 1rem; border-radius: var(--radius-md); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 0.75rem; }
+.nav-item:hover { background: rgba(255,255,255,0.05); }
+.nav-item.active { background: rgba(212, 175, 55, 0.1); color: var(--color-gold); }
+.logout-btn { margin-top: 1rem; width: 100%; }
+
+/* Content Sections */
+.account-section { display: none; }
+.account-section.active { display: block; }
+.section-title { font-family: var(--font-display); font-size: 2rem; margin-bottom: 1.5rem; }
+
+/* Cards */
+.info-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+.info-card h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+
+/* Orders */
+.order-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
+.order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border); }
+.order-number { font-family: var(--font-display); font-size: 1.2rem; }
+.order-status { padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.order-status.delivered { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+.order-status.processing { background: rgba(255, 193, 7, 0.2); color: #FFC107; }
+.order-status.shipped { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+.order-status.pending { background: rgba(156, 39, 176, 0.2); color: #AB47BC; }
+.order-items { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.order-item-thumb { width: 50px; height: 50px; background: var(--gradient-primary); border-radius: var(--radius-sm); overflow: hidden; }
+.order-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.order-footer { display: flex; justify-content: space-between; align-items: center; }
+.order-total { color: var(--color-champagne); font-family: var(--font-display); font-size: 1.2rem; }
+
+/* Form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label { display: block; font-size: 0.85rem; color: var(--color-lavender); margin-bottom: 0.5rem; }
+.form-input { width: 100%; padding: 0.875rem 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: var(--radius-md); color: white; font-size: 1rem; transition: 0.2s; }
+.form-input:focus { outline: none; border-color: var(--color-gold); }
+
+/* Saved Scents */
+.scent-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; transition: 0.2s; }
+.scent-card:hover { border-color: rgba(212, 175, 55, 0.3); }
+.scent-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+.scent-name { font-family: var(--font-display); font-size: 1.4rem; color: var(--color-champagne); }
+.scent-actions { display: flex; gap: 0.5rem; }
+.scent-details { margin-bottom: 1rem; }
+.scent-notes-section { margin-bottom: 0.75rem; }
+.notes-label { display: block; font-size: 0.75rem; color: var(--color-lavender); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.scent-notes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.scent-note { padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.8rem; }
+.scent-note.top { background: rgba(255, 193, 7, 0.15); color: #FFD54F; }
+.scent-note.middle { background: rgba(183, 110, 121, 0.15); color: var(--color-blush); }
+.scent-note.base { background: rgba(139, 90, 43, 0.25); color: #D4A574; }
+.scent-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--glass-border); flex-wrap: wrap; gap: 0.5rem; }
+.scent-intensity { color: var(--color-lavender); font-size: 0.85rem; text-transform: capitalize; }
+.scent-intensity i { color: var(--color-gold); margin-right: 0.25rem; }
+.scent-price { color: var(--color-gold); font-family: var(--font-display); font-size: 1.2rem; }
+.scent-date { color: var(--color-medium-gray); font-size: 0.8rem; }
+
+.order-item-thumb { display: flex; align-items: center; justify-content: center; color: var(--color-gold); font-size: 1.2rem; }
+
+/* Empty States */
+.empty-state { text-align: center; padding: 3rem; color: var(--color-lavender); }
+.empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+@media (max-width: 900px) {
+  .account-layout { grid-template-columns: 1fr; }
+  .account-sidebar { position: static; }
+  .form-grid { grid-template-columns: 1fr; }
+}

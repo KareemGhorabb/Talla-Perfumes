@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/account.css">
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="account.html" class="nav-icon" title="Account">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="account-page">
+    <div class="container">
+      <div class="account-layout">
+        <!-- Sidebar -->
+        <aside class="account-sidebar">
+          <div class="account-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <h3 class="user-name" id="userName">Guest</h3>
+            <p class="user-email" id="userEmail">Welcome to TALLA</p>
+            <p class="user-since">Member since 2024</p>
+          </div>
+          <nav class="nav-menu">
+            <div class="nav-item active" data-section="orders"><i class="fa-solid fa-box"></i> My Orders</div>
+            <div class="nav-item" data-section="scents"><i class="fa-solid fa-flask"></i> My Scents</div>
+            <div class="nav-item" data-section="settings"><i class="fa-solid fa-gear"></i> Settings</div>
+          </nav>
+          <button class="btn btn-secondary logout-btn" id="logoutBtn">Sign Out</button>
+        </aside>
+
+        <!-- Content -->
+        <div class="account-content">
+          <!-- Orders -->
+          <div class="account-section active" id="orders">
+            <h2 class="section-title">My <span class="text-gradient">Orders</span></h2>
+            <div id="ordersContainer"></div>
+          </div>
+
+          <!-- Saved Scents -->
+          <div class="account-section" id="scents">
+            <h2 class="section-title">My Custom <span class="text-gradient">Scents</span></h2>
+            <div id="scentsContainer"></div>
+          </div>
+
+          <!-- Settings -->
+          <div class="account-section" id="settings">
+            <h2 class="section-title">Account <span class="text-gradient">Settings</span></h2>
+            <div class="info-card">
+              <h3><i class="fa-solid fa-user"></i> Personal Information</h3>
+              <form id="profileForm">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-input" id="settingsFirstName">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-input" id="settingsLastName">
+                  </div>
+                  <div class="form-group full">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="settingsEmail">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">TALLA</div>
+        <div class="footer-links">
+          <a href="products.html" class="footer-link">Shop</a>
+          <a href="scent-lab.html" class="footer-link">Scent Lab</a>
+          <a href="cart.html" class="footer-link">Cart</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items loaded via JS -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+  <script src="scripts/app.js?v=2"></script>
+  <script src="scripts/account-page.js"></script>
+</body>
+</html>
+
