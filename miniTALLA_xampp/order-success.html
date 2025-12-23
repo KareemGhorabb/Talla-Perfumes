@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/result-pages.css">
+</head>
+<body>
+  <nav class="navbar scrolled">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="result-page">
+    <div class="result-card">
+      <div class="result-icon success">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h1>Order Confirmed!</h1>
+      <p>Thank you for choosing <strong>TALLA</strong>. Your luxury fragrance journey has begun. We've sent a confirmation email to you.</p>
+      <p class="order-info">Order Number: <span class="order-number" id="orderId">#TL-XXXXXX</span></p>
+
+      <div class="order-details" id="orderDetails">
+        <!-- Order details will be populated by JS -->
+      </div>
+
+      <div class="action-btns">
+        <a href="account.html#orders" class="btn btn-secondary"><i class="fa-solid fa-box"></i> View Orders</a>
+        <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">TALLA</div>
+        <div class="footer-links">
+          <a href="products.html" class="footer-link">Shop</a>
+          <a href="scent-lab.html" class="footer-link">Scent Lab</a>
+          <a href="cart.html" class="footer-link">Cart</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Get order info from URL params
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('orderId');
+    const total = params.get('total');
+    
+    if (orderId) {
+      document.getElementById('orderId').textContent = orderId;
+    }
+    
+    if (total) {
+      const detailsContainer = document.getElementById('orderDetails');
+      detailsContainer.innerHTML = `
+        <div class="order-summary-mini">
+          <span>Order Total:</span>
+          <span class="order-total">$${parseFloat(total).toFixed(2)}</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -93,11 +93,8 @@ async function handleCheckout(e) {
       // Clear cart
       localStorage.setItem('talla_cart', JSON.stringify([]));
       
-      // Show confirmation
-      alert(`Order placed successfully!\n\nOrder Number: ${result.orderId}\n\nThank you for shopping with TALLA!`);
-      
-      // Redirect to home
-      window.location.href = 'index.html';
+      // Redirect to order success page with order details
+      window.location.href = `order-success.html?orderId=${encodeURIComponent(result.orderId)}&total=${total}`;
     } else {
       alert('Error: ' + result.message);
     }

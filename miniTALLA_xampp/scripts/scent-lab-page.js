@@ -267,7 +267,7 @@ document.getElementById('orderBtn').addEventListener('click', () => {
   cart.push({ ...scent, qty: 1 });
   localStorage.setItem('talla_cart', JSON.stringify(cart));
 
-  alert(`"${scent.name}" has been added to your cart!`);
+  // Redirect to cart (no need for alert)
   window.location.href = 'cart.html';
 });
 
@@ -339,7 +339,8 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     console.log('Parsed result:', result);
     
     if (result.success) {
-      alert(`"${name}" has been saved to your account!\n\nView it in My Account → My Scents`);
+      // Redirect to scent saved success page
+      window.location.href = `scent-saved.html?name=${encodeURIComponent(name)}&price=${price}`;
     } else {
       alert('Error saving scent: ' + result.message);
     }

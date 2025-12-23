@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scent Saved | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/result-pages.css">
+</head>
+<body>
+  <nav class="navbar scrolled">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="result-page">
+    <div class="result-card">
+      <div class="result-icon success">
+        <i class="fa-solid fa-flask-vial"></i>
+      </div>
+      <h1>Scent Saved!</h1>
+      <p>Your custom creation <strong class="highlight" id="scentName">"Your Scent"</strong> has been saved to your account.</p>
+      
+      <div class="scent-summary" id="scentSummary">
+        <!-- Scent details populated by JS -->
+      </div>
+
+      <div class="action-btns">
+        <a href="account.html#scents" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> View My Scents</a>
+        <a href="scent-lab.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Another</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">TALLA</div>
+        <div class="footer-links">
+          <a href="products.html" class="footer-link">Shop</a>
+          <a href="scent-lab.html" class="footer-link">Scent Lab</a>
+          <a href="cart.html" class="footer-link">Cart</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Get scent info from URL params
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const price = params.get('price');
+    
+    if (name) {
+      document.getElementById('scentName').textContent = `"${name}"`;
+    }
+    
+    if (price) {
+      document.getElementById('scentSummary').innerHTML = `
+        <div class="order-summary-mini">
+          <span>Scent Price:</span>
+          <span class="order-total">$${parseFloat(price).toFixed(2)}</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

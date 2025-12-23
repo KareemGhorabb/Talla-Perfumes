@@ -44,14 +44,14 @@ const products = [
     top: ['Pink Pepper', 'Cinnamon'], middle: ['Damascus Rose', 'Geranium'], base: ['Amber', 'Frankincense']
   },
   {
-    id: '7', name: 'Velvet Noir', brand: 'TALLA', price: 199, category: 'woody', badge: 'LUXURY',
+    id: '7', name: 'Velvet E', brand: 'TALLA', price: 199, category: 'woody', badge: 'LUXURY',
     image: "images/Screenshot 2025-12-19 163322.png",
     description: 'Dark and luxurious with leather and tobacco',
     notes: 'Leather, Tobacco, Oud',
     top: ['Black Pepper', 'Cardamom'], middle: ['Leather', 'Tobacco'], base: ['Oud', 'Vanilla']
   },
   {
-    id: '8', name: 'Desert Rose', brand: 'TALLA', price: 155, category: 'spicy', badge: 'NEW',
+    id: '8', name: 'Desert Cose', brand: 'TALLA', price: 155, category: 'spicy', badge: 'NEW',
     image: "images/Screenshot 2025-12-19 163329.png",
     description: 'Warm spices meet delicate rose petals',
     notes: 'Rose, Cinnamon, Amber',
@@ -62,6 +62,33 @@ const products = [
 // Make products globally available
 window.TALLA = { products };
 
+// Toast notification function
+function showToast(message, type = 'success', duration = 3000) {
+  // Create container if it doesn't exist
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+  
+  // Create toast
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+  toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${message}</span>`;
+  container.appendChild(toast);
+  
+  // Remove after duration
+  setTimeout(() => {
+    toast.classList.add('hiding');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// Make toast globally available
+window.showToast = showToast;
+
 // Cart from localStorage
 let cart = JSON.parse(localStorage.getItem('talla_cart')) || [];
 
@@ -70,23 +97,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initCart();
   initParticles();
   initNavbar();
+  initAccountIcon();
   loadProducts();
   updateCartUI();
-  updateAccountIcon();
 });
 
-// Update account icon link based on login status
-function updateAccountIcon() {
+// Update account icon based on login status
+function initAccountIcon() {
   const user = JSON.parse(localStorage.getItem('talla_user'));
-  const accountLinks = document.querySelectorAll('a.nav-icon[href="login.html"], a.nav-icon[href="account.html"]');
+  const accountLinks = document.querySelectorAll('.nav-icon[title="Account"], a.nav-icon[href="login.html"]');
   
   accountLinks.forEach(link => {
     if (user && user.email) {
+      // User is logged in - link to account page
       link.href = 'account.html';
-      link.title = user.name || 'My Account';
+      link.title = 'My Account';
+      link.innerHTML = '<i class="fa-solid fa-user"></i>';
     } else {
+      // Not logged in - link to login page
       link.href = 'login.html';
       link.title = 'Sign In';
+      link.innerHTML = '<i class="fa-regular fa-user"></i>';
     }
   });
 }

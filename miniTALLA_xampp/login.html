@@ -110,60 +110,70 @@
       });
     });
     
-    // Function to handle API calls
-    async function handleAuth(endpoint, data) {
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          alert(result.message);
-          // For successful login, store user info (e.g., name) and redirect
-          if (endpoint.includes('action=login') && result.user) {
-            localStorage.setItem('talla_user', JSON.stringify({ email: data.email, name: result.user.name }));
-            window.location.href = 'account.html';
-          } else {
-            // Registration success - redirect to login
-            window.location.href = 'login.html';
-          }
-        } else {
-          alert('Error: ' + result.message);
-        }
-      } catch (error) {
-        console.error('Network or server error:', error);
-        alert('An unexpected error occurred. Please try again.');
-      }
-    }
-
-    // Login form
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
+    // Login form - uses backend API
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       
-      handleAuth('api/auth.php?action=login', { email, password });
+      try {
+        const response = await fetch('api/auth.php?action=login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Save user with actual name from backend
+          localStorage.setItem('talla_user', JSON.stringify({ 
+            email, 
+            name: data.user.name,
+            id: data.user.id 
+          }));
+          window.location.href = 'welcome.html?type=login';
+        } else {
+          alert(data.message || 'Login failed. Please check your credentials.');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('An error occurred. Please try again.');
+      }
     });
     
-    // Register form
-    document.getElementById('registerForm').addEventListener('submit', (e) => {
+    // Register form - uses backend API
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const fullName = document.getElementById('registerName').value;
-      // Split full name into first and last name for the PHP backend
-      const nameParts = fullName.trim().split(/\s+/);
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || '';
-      
+      const name = document.getElementById('registerName').value;
       const email = document.getElementById('registerEmail').value;
       const password = document.getElementById('registerPassword').value;
       
-      handleAuth('api/auth.php?action=register', { firstName, lastName, email, password });
+      // Split name into first and last
+      const nameParts = name.trim().split(' ');
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(' ') || '';
+      
+      try {
+        const response = await fetch('api/auth.php?action=register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstName, lastName, email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Save user after registration
+          localStorage.setItem('talla_user', JSON.stringify({ email, name: firstName }));
+          window.location.href = 'welcome.html?type=register';
+        } else {
+          alert(data.message || 'Registration failed. Please try again.');
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('An error occurred. Please try again.');
+      }
     });
   </script>
 </body>

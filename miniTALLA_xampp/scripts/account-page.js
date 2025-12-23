@@ -244,11 +244,11 @@ async function addScentToCart(scentId) {
     });
     localStorage.setItem('talla_cart', JSON.stringify(cart));
     
-    alert('Custom scent added to cart!');
+    showToast('Custom scent added to cart!', 'success');
     if (typeof updateCartUI === 'function') updateCartUI();
   } catch (error) {
     console.error('Error adding scent to cart:', error);
-    alert('Failed to add scent to cart.');
+    showToast('Failed to add scent to cart.', 'error');
   }
 }
 
@@ -267,15 +267,15 @@ async function deleteScent(scentId) {
     const data = await response.json();
     
     if (data.success) {
-      alert('Scent deleted successfully.');
+      showToast('Scent deleted successfully.', 'success');
       // Reload scents
       loadSavedScents(user.email);
     } else {
-      alert('Error: ' + data.message);
+      showToast('Error: ' + data.message, 'error');
     }
   } catch (error) {
     console.error('Error deleting scent:', error);
-    alert('Failed to delete scent.');
+    showToast('Failed to delete scent.', 'error');
   }
 }
 
@@ -310,7 +310,7 @@ function setupSettingsForm(user) {
       window.currentUser = updatedUser;
       displayUserInfo(updatedUser);
       
-      alert('Profile updated successfully!');
+      showToast('Profile updated successfully!', 'success');
     });
   }
 }
