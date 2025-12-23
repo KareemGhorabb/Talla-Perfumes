@@ -3,42 +3,56 @@
 const products = [
   {
     id: '1', name: 'Layaly', brand: 'TALLA', price: 189, category: 'oriental', badge: 'LUXURY',
-    image: 'https://images.unsplash.com/photo-1719175936556-dbd05e415913?w=400',
+    image: "images/Screenshot 2025-12-19 163230.png",
     description: 'A mysterious night fragrance with deep oud and amber',
     notes: 'Oud, Rose, Amber',
     top: ['Bergamot', 'Saffron'], middle: ['Oud', 'Rose'], base: ['Amber', 'Musk']
   },
   {
     id: '2', name: 'Lumière Dorée', brand: 'TALLA', price: 165, category: 'citrus', badge: 'NEW',
-    image: 'https://images.unsplash.com/photo-1747052881000-a640a4981dd0?w=400',
+    image: "images/Screenshot 2025-12-19 163238.png",
     description: 'Golden hour captured in a bottle with warm vanilla and citrus',
     notes: 'Orange Blossom, Vanilla, Musk',
     top: ['Orange Blossom', 'Mandarin'], middle: ['Vanilla', 'Tonka Bean'], base: ['Benzoin', 'White Musk']
   },
   {
     id: '3', name: 'Midnight Garden', brand: 'TALLA', price: 175, category: 'floral', badge: 'TRENDING',
-    image: 'https://images.unsplash.com/photo-1758225502621-9102d2856dc8?w=400',
+    image: "images/Screenshot 2025-12-19 163246.png",
     description: 'A nocturnal floral journey with jasmine and gardenia',
     notes: 'Jasmine, Gardenia, Vetiver',
     top: ['Green Leaves', 'Peony'], middle: ['Jasmine', 'Gardenia'], base: ['Vetiver', 'Patchouli']
   },
   {
     id: '4', name: 'Solar Bliss', brand: 'TALLA', price: 145, category: 'fresh', badge: 'TRENDING',
-    image: 'https://images.unsplash.com/photo-1709095458514-573bc6277d3d?w=400',
+    image: "images/Screenshot 2025-12-19 163255.png",
     description: 'Fresh citrus and sea salt for endless summer vibes',
     notes: 'Grapefruit, Coconut, Driftwood',
     top: ['Grapefruit', 'Sea Salt'], middle: ['Coconut', 'Ylang Ylang'], base: ['Driftwood', 'Musk']
   },
   {
     id: '5', name: 'Velvet Noir', brand: 'TALLA', price: 199, category: 'woody', badge: 'LUXURY',
-    image: 'https://images.unsplash.com/photo-1705899853374-d91c048b81d2?w=400',
+    image: "images/Screenshot 2025-12-19 163302.png",
     description: 'Dark and luxurious with leather and tobacco',
     notes: 'Leather, Tobacco, Oud',
     top: ['Black Pepper', 'Cardamom'], middle: ['Leather', 'Tobacco'], base: ['Oud', 'Vanilla']
   },
   {
     id: '6', name: 'Desert Rose', brand: 'TALLA', price: 155, category: 'spicy', badge: 'NEW',
-    image: 'https://images.unsplash.com/photo-1759848547378-d59542dcb935?w=400',
+    image: "images/Screenshot 2025-12-19 163338.png",
+    description: 'Warm spices meet delicate rose petals',
+    notes: 'Rose, Cinnamon, Amber',
+    top: ['Pink Pepper', 'Cinnamon'], middle: ['Damascus Rose', 'Geranium'], base: ['Amber', 'Frankincense']
+  },
+  {
+    id: '7', name: 'Velvet Noir', brand: 'TALLA', price: 199, category: 'woody', badge: 'LUXURY',
+    image: "images/Screenshot 2025-12-19 163322.png",
+    description: 'Dark and luxurious with leather and tobacco',
+    notes: 'Leather, Tobacco, Oud',
+    top: ['Black Pepper', 'Cardamom'], middle: ['Leather', 'Tobacco'], base: ['Oud', 'Vanilla']
+  },
+  {
+    id: '8', name: 'Desert Rose', brand: 'TALLA', price: 155, category: 'spicy', badge: 'NEW',
+    image: "images/Screenshot 2025-12-19 163329.png",
     description: 'Warm spices meet delicate rose petals',
     notes: 'Rose, Cinnamon, Amber',
     top: ['Pink Pepper', 'Cinnamon'], middle: ['Damascus Rose', 'Geranium'], base: ['Amber', 'Frankincense']

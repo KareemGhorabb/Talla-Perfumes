@@ -17,11 +17,15 @@
 
 .product-main-image {
   width: 100%;
-  aspect-ratio: 1;
+  max-width: 450px;  
+  height: 80%; 
+  aspect-ratio: 3/4;
+  margin: 0 auto;     
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--gradient-primary);
 }
+
 
 .product-main-image img {
   width: 100%;

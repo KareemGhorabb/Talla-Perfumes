@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
       <p class="product-brand">${product.brand}</p>
       <h1>${product.name}</h1>
       <p class="product-description">${product.description}</p>
+      <div class="product-price-section">
+        <span class="price-display">$${product.price}</span>
+      </div>
+      
+      <div class="product-actions">
+        <button class="btn btn-primary" onclick="addToCart('${product.id}')">
+          <i class="fa-solid fa-bag-shopping"></i> Add to Bag
+        </button>
+      </div>
       
       <div class="product-notes-section">
         <h3>Fragrance Notes</h3>
@@ -44,16 +53,5 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
       </div>
-      
-      <div class="product-price-section">
-        <span class="price-display">$${product.price}</span>
-      </div>
-      
-      <div class="product-actions">
-        <button class="btn btn-primary" onclick="addToCart('${product.id}')">
-          <i class="fa-solid fa-bag-shopping"></i> Add to Bag
-        </button>
-      </div>
-    </div>
   `;
 });
