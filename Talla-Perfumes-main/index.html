@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TALLA - AI-Powered Luxury Perfumes for Gen Z. Discover your perfect scent or create your own custom fragrance.">
+  <title>TALLA | AI-Powered Luxury Perfumes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="quiz.html" class="nav-link">Find Your Scent</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="products.html#new" class="nav-link">New Drops</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <div class="nav-icon" id="searchBtn" title="Search">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <a href="account.html" class="nav-icon" title="Account">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-bottles">
+      <div class="bottle"><i class="fa-solid fa-spa"></i></div>
+      <div class="bottle"><i class="fa-solid fa-sparkles"></i></div>
+      <div class="bottle"><i class="fa-solid fa-gem"></i></div>
+      <div class="bottle"><i class="fa-solid fa-moon"></i></div>
+      <div class="bottle"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+    </div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">AI-Powered Luxury Fragrances</p>
+      <h1 class="hero-title">Find Your <span class="text-gradient">Signature Scent</span></h1>
+      <p class="hero-subtitle">Discover personalized perfumes crafted by AI or create your own unique fragrance in our Scent Lab</p>
+      <div class="hero-buttons">
+        <a href="quiz.html" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Discover Your Scent</a>
+        <a href="scent-lab.html" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> Create Your Own Perfume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Drops Section -->
+  <section class="section" id="new-drops">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Just Arrived</p>
+        <h2 class="section-title">New <span class="text-gradient">Drops</span></h2>
+        <p class="section-subtitle">Fresh releases that are making waves in the fragrance world</p>
+      </div>
+      <div class="product-grid" id="newDropsGrid">
+        <!-- Products loaded via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Features Section -->
+  <section class="section ai-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Powered by AI</p>
+        <h2 class="section-title">Your <span class="text-gradient">Personal</span> Perfumer</h2>
+        <p class="section-subtitle">Let our AI help you discover scents that match your unique personality</p>
+      </div>
+      <div class="ai-grid">
+        <div class="ai-card">
+          <div class="ai-icon"><i class="fa-solid fa-robot"></i></div>
+          <h3>AI Scent Quiz</h3>
+          <p>Answer a few questions about your mood, personality, and lifestyle. Our AI will match you with your perfect fragrance.</p>
+          <a href="quiz.html" class="btn btn-primary">Take the Quiz</a>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon"><i class="fa-solid fa-flask"></i></div>
+          <h3>Custom Scent Lab</h3>
+          <p>Build your own signature perfume by mixing notes. Watch your bottle come to life as you design your dream scent.</p>
+          <a href="scent-lab.html" class="btn btn-secondary">Start Creating</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Explore</p>
+        <h2 class="section-title">Scent <span class="text-gradient">Families</span></h2>
+        <p class="section-subtitle">Browse by your favorite fragrance profiles</p>
+      </div>
+      <div class="categories-grid">
+        <div class="category-card" onclick="window.location.href='products.html?category=floral'">
+          <div class="category-icon">
+            <img src="images/floral.png" alt="">
+          </div>
+          <div class="category-content">
+            <h3 class="category-name">Floral</h3>
+            <p class="category-count">24 Fragrances</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=woody'">
+          <div class="category-icon">
+            <img src="images/Woody.png" alt="">
+          </div>
+          <div class="category-content">
+            <h3 class="category-name">Woody</h3>
+            <p class="category-count">18 Fragrances</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=oriental'">
+          <div class="category-icon">
+          <img src="images/Oriental.png" alt="">
+          </div>
+          <div class="category-content">
+            <h3 class="category-name">Oriental</h3>
+            <p class="category-count">21 Fragrances</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=fresh'">
+          <div class="category-icon">
+          <img src="images/Fresh.png" alt="">
+          </div>
+          <div class="category-content">
+            <h3 class="category-name">Fresh</h3>
+            <p class="category-count">15 Fragrances</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Picks Section -->
+  <section class="section" style="background: rgba(45, 27, 78, 0.2);">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Editor's Choice</p>
+        <h2 class="section-title">Luxury <span class="text-gradient">Picks</span></h2>
+        <p class="section-subtitle">Premium fragrances handpicked by our experts</p>
+      </div>
+      <div class="product-grid" id="luxuryGrid">
+        <!-- Products loaded via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Most Loved</p>
+        <h2 class="section-title"><span class="text-gradient">Trending</span> Now</h2>
+        <p class="section-subtitle">What everyone's wearing this season</p>
+      </div>
+      <div class="product-grid" id="trendingGrid">
+        <!-- Products loaded via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" style="background: var(--gradient-dark);">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <h4 class="feature-title">Free Shipping</h4>
+          <p class="feature-text">On orders over $75</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+          <h4 class="feature-title">Gift Wrapping</h4>
+          <p class="feature-text">Luxury packaging included</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-vial"></i></div>
+          <h4 class="feature-title">Samples</h4>
+          <p class="feature-text">Free samples with every order</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+          <h4 class="feature-title">Easy Returns</h4>
+          <p class="feature-text">30-day return policy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>Join the <span class="text-gradient">TALLA</span> Family</h2>
+      <p>Get exclusive drops, personalized recommendations, and 15% off your first order</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">TALLA</div>
+          <p class="footer-desc">AI-powered luxury fragrances designed for the modern generation. Find your signature scent or create something uniquely you.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">IG</a>
+            <a href="#" class="social-link">TT</a>
+            <a href="#" class="social-link">TW</a>
+            <a href="#" class="social-link">YT</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="products.html" class="footer-link">All Perfumes</a></li>
+            <li><a href="products.html#new" class="footer-link">New Drops</a></li>
+            <li><a href="products.html#bestsellers" class="footer-link">Bestsellers</a></li>
+            <li><a href="scent-lab.html" class="footer-link">Custom Scents</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+            <li><a href="shipping.html" class="footer-link">Shipping Info</a></li>
+            <li><a href="refunds.html" class="footer-link">Returns & Refunds</a></li>
+            <li><a href="#" class="footer-link">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Sign In</a></li>
+            <li><a href="account.html" class="footer-link">My Account</a></li>
+            <li><a href="account.html#orders" class="footer-link">Order History</a></li>
+            <li><a href="account.html#wishlist" class="footer-link">Wishlist</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+        <div class="payment-methods">
+          <span class="payment-icon">VISA</span>
+          <span class="payment-icon">MC</span>
+          <span class="payment-icon">AMEX</span>
+          <span class="payment-icon">PP</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items loaded via JS -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="search-modal" id="searchModal">
+    <span class="search-close" id="searchClose">×</span>
+    <div class="search-box">
+      <div class="search-wrapper">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search perfumes, notes, moods...">
+      </div>
+      <div class="search-tags">
+        <span class="search-tag" data-query="fresh summer scent">Fresh for summer</span>
+        <span class="search-tag" data-query="date night perfume">Date night</span>
+        <span class="search-tag" data-query="like Sauvage">Like Sauvage</span>
+        <span class="search-tag" data-query="sweet vanilla">Sweet & vanilla</span>
+        <span class="search-tag" data-query="unisex woody">Unisex woody</span>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <script src="scripts/app.js?v=2"></script>
+</body>
+</html>
+

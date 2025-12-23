@@ -1,0 +1,48 @@
+/* Products Page Styles */
+.products-page {
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.products-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.products-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.products-header p {
+  color: var(--color-lavender);
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 0.75rem 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+.filter-select option {
+  background: var(--color-midnight);
+  color: white;
+}

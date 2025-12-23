@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Take our AI-powered scent quiz to find your perfect perfume match">
+  <title>Find Your Scent | TALLA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/quiz.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="quiz.html" class="nav-link">Find Your Scent</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="products.html#new" class="nav-link">New Drops</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <div class="nav-icon" id="searchBtn" title="Search">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <a href="account.html" class="nav-icon" title="Account">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="quiz-page">
+    <div class="quiz-container">
+      <!-- Progress -->
+      <div class="quiz-progress" id="progress">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+
+      <!-- Step 1: Mood -->
+      <div class="quiz-step active" data-step="1">
+        <div class="quiz-question">
+          <h2>What's your <span class="text-gradient">vibe</span> today?</h2>
+          <p>Choose the mood that resonates with you most</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="romantic">
+            <span class="quiz-option-icon"><i class="fa-solid fa-heart"></i></span>
+            <div class="quiz-option-text">
+              <h4>Romantic & Dreamy</h4>
+              <p>Soft, sensual, and enchanting</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="bold">
+            <span class="quiz-option-icon"><i class="fa-solid fa-fire"></i></span>
+            <div class="quiz-option-text">
+              <h4>Bold & Confident</h4>
+              <p>Strong presence, unapologetic power</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="fresh">
+            <span class="quiz-option-icon"><i class="fa-solid fa-leaf"></i></span>
+            <div class="quiz-option-text">
+              <h4>Fresh & Energetic</h4>
+              <p>Clean, vibrant, ready for anything</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="mysterious">
+            <span class="quiz-option-icon"><i class="fa-solid fa-moon"></i></span>
+            <div class="quiz-option-text">
+              <h4>Mysterious & Alluring</h4>
+              <p>Deep, intriguing, unforgettable</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Personality -->
+      <div class="quiz-step" data-step="2">
+        <div class="quiz-question">
+          <h2>Your <span class="text-gradient">personality</span> in one word?</h2>
+          <p>What do people notice about you first?</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="creative">
+            <span class="quiz-option-icon"><i class="fa-solid fa-palette"></i></span>
+            <div class="quiz-option-text">
+              <h4>Creative & Artistic</h4>
+              <p>Always thinking outside the box</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="ambitious">
+            <span class="quiz-option-icon"><i class="fa-solid fa-rocket"></i></span>
+            <div class="quiz-option-text">
+              <h4>Ambitious & Driven</h4>
+              <p>Goal-oriented and focused</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="chill">
+            <span class="quiz-option-icon"><i class="fa-solid fa-peace"></i></span>
+            <div class="quiz-option-text">
+              <h4>Chill & Easy-going</h4>
+              <p>Go with the flow vibes</p>
+            </div>
+          </div>
+          <div class="quiz-option" data-value="social">
+            <span class="quiz-option-icon"><i class="fa-solid fa-dove"></i></span>
+            <div class="quiz-option-text">
+              <h4>Social Butterfly</h4>
+              <p>Life of the party energy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Age Group -->
+      <div class="quiz-step" data-step="3">
+        <div class="quiz-question">
+          <h2>What's your <span class="text-gradient">age</span> range?</h2>
+          <p>This helps us match scent intensity</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="18-24">
+            <span class="quiz-option-icon"><i class="fa-solid fa-sparkles"></i></span>
+            <div class="quiz-option-text"><h4>18-24</h4><p>Young and fresh</p></div>
+          </div>
+          <div class="quiz-option" data-value="25-34">
+            <span class="quiz-option-icon"><i class="fa-solid fa-star"></i></span>
+            <div class="quiz-option-text"><h4>25-34</h4><p>In my prime</p></div>
+          </div>
+          <div class="quiz-option" data-value="35-44">
+            <span class="quiz-option-icon"><i class="fa-regular fa-star"></i></span>
+            <div class="quiz-option-text"><h4>35-44</h4><p>Refined taste</p></div>
+          </div>
+          <div class="quiz-option" data-value="45+">
+            <span class="quiz-option-icon"><i class="fa-solid fa-crown"></i></span>
+            <div class="quiz-option-text"><h4>45+</h4><p>Timeless elegance</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Gender -->
+      <div class="quiz-step" data-step="4">
+        <div class="quiz-question">
+          <h2>Scent <span class="text-gradient">preference</span>?</h2>
+          <p>What type of fragrances do you gravitate towards?</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="feminine">
+            <span class="quiz-option-icon"><i class="fa-solid fa-spa"></i></span>
+            <div class="quiz-option-text"><h4>Feminine</h4><p>Florals, fruits, soft musks</p></div>
+          </div>
+          <div class="quiz-option" data-value="masculine">
+            <span class="quiz-option-icon"><i class="fa-solid fa-tree"></i></span>
+            <div class="quiz-option-text"><h4>Masculine</h4><p>Woods, leather, spices</p></div>
+          </div>
+          <div class="quiz-option" data-value="unisex">
+            <span class="quiz-option-icon"><i class="fa-solid fa-circle-half-stroke"></i></span>
+            <div class="quiz-option-text"><h4>Unisex / Don't Care</h4><p>Best of both worlds</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Lifestyle -->
+      <div class="quiz-step" data-step="5">
+        <div class="quiz-question">
+          <h2>Where will you <span class="text-gradient">wear</span> this?</h2>
+          <p>Your typical occasion</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="everyday">
+            <span class="quiz-option-icon"><i class="fa-solid fa-sun"></i></span>
+            <div class="quiz-option-text"><h4>Everyday</h4><p>Work, school, casual outings</p></div>
+          </div>
+          <div class="quiz-option" data-value="date">
+            <span class="quiz-option-icon"><i class="fa-solid fa-heart-pulse"></i></span>
+            <div class="quiz-option-text"><h4>Date Night</h4><p>Romantic dinners, special moments</p></div>
+          </div>
+          <div class="quiz-option" data-value="party">
+            <span class="quiz-option-icon"><i class="fa-solid fa-champagne-glasses"></i></span>
+            <div class="quiz-option-text"><h4>Night Out</h4><p>Clubs, parties, events</p></div>
+          </div>
+          <div class="quiz-option" data-value="special">
+            <span class="quiz-option-icon"><i class="fa-solid fa-gem"></i></span>
+            <div class="quiz-option-text"><h4>Special Occasions</h4><p>Weddings, galas, milestones</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Season -->
+      <div class="quiz-step" data-step="6">
+        <div class="quiz-question">
+          <h2>Favorite <span class="text-gradient">season</span>?</h2>
+          <p>This influences scent families we recommend</p>
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="spring">
+            <span class="quiz-option-icon"><i class="fa-solid fa-seedling"></i></span>
+            <div class="quiz-option-text"><h4>Spring</h4><p>Fresh blooms and new beginnings</p></div>
+          </div>
+          <div class="quiz-option" data-value="summer">
+            <span class="quiz-option-icon"><i class="fa-solid fa-umbrella-beach"></i></span>
+            <div class="quiz-option-text"><h4>Summer</h4><p>Sunny, light, and carefree</p></div>
+          </div>
+          <div class="quiz-option" data-value="fall">
+            <span class="quiz-option-icon"><i class="fa-solid fa-wind"></i></span>
+            <div class="quiz-option-text"><h4>Fall</h4><p>Warm, cozy, and spiced</p></div>
+          </div>
+          <div class="quiz-option" data-value="winter">
+            <span class="quiz-option-icon"><i class="fa-solid fa-snowflake"></i></span>
+            <div class="quiz-option-text"><h4>Winter</h4><p>Rich, deep, and luxurious</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="quiz-step" data-step="result">
+        <div class="section-header" style="margin-bottom: 2rem;">
+          <p class="section-label">AI Matched</p>
+          <h2 class="section-title">Your <span class="text-gradient">Perfect Match</span></h2>
+        </div>
+        <div class="result-card" id="resultCard">
+          <!-- Filled by JS -->
+        </div>
+        <div class="alternative" id="alternative">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="quiz-nav" id="quizNav">
+        <button class="btn btn-secondary" id="prevBtn" style="visibility: hidden;">← Back</button>
+        <button class="btn btn-primary" id="nextBtn" disabled>Next →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">TALLA</div>
+          <p class="footer-desc">AI-powered luxury fragrances designed for the modern generation. Find your signature scent or create something uniquely you.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="products.html" class="footer-link">All Perfumes</a></li>
+            <li><a href="products.html#new" class="footer-link">New Drops</a></li>
+            <li><a href="products.html#bestsellers" class="footer-link">Bestsellers</a></li>
+            <li><a href="scent-lab.html" class="footer-link">Custom Scents</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Sign In</a></li>
+            <li><a href="account.html" class="footer-link">My Account</a></li>
+            <li><a href="account.html#orders" class="footer-link">Order History</a></li>
+            <li><a href="account.html#wishlist" class="footer-link">Wishlist</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom" style="text-align: center;">
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items loaded via JS -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+  <script src="scripts/app.js?v=2"></script>
+  <script src="scripts/quiz-page.js"></script>
+</body>
+</html>
+
