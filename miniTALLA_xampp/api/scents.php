@@ -6,6 +6,11 @@
  * DELETE /api/scents.php?id=1 - Delete a scent
  */
 
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
@@ -18,6 +23,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once '../config/db.php';
+
+// Auto-create table if it doesn't exist
+$createTableSQL = "
+CREATE TABLE IF NOT EXISTS custom_scents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_email VARCHAR(100) NOT NULL,
+    scent_name VARCHAR(100) DEFAULT 'My Custom Scent',
+    notes JSON,
+    top_notes JSON,
+    middle_notes JSON,
+    base_notes JSON,
+    intensity VARCHAR(50) DEFAULT 'balanced',
+    price DECIMAL(10, 2) DEFAULT 225.00,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_user_email (user_email)
+)";
+$conn->query($createTableSQL);
 
 $response = ['success' => false, 'message' => ''];
 

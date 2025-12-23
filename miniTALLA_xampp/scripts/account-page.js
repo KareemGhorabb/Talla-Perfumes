@@ -129,11 +129,27 @@ async function loadSavedScents(email) {
   const container = document.getElementById('scentsContainer');
   if (!container) return;
   
+  console.log('Loading scents for email:', email);
   container.innerHTML = '<p style="text-align:center; color: var(--color-lavender);">Loading your scents...</p>';
   
   try {
-    const response = await fetch(`api/scents.php?email=${encodeURIComponent(email)}`);
-    const data = await response.json();
+    const url = `api/scents.php?email=${encodeURIComponent(email)}`;
+    console.log('Fetching from:', url);
+    
+    const response = await fetch(url);
+    const responseText = await response.text();
+    console.log('Raw response:', responseText);
+    
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch(e) {
+      console.error('Failed to parse JSON:', e);
+      container.innerHTML = '<p style="color:red;">Error loading scents. Check console.</p>';
+      return;
+    }
+    
+    console.log('Parsed data:', data);
     
     if (data.success && data.scents && data.scents.length > 0) {
       container.innerHTML = data.scents.map(scent => `

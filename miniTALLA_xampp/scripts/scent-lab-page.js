@@ -276,6 +276,9 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
   // Check if user is logged in
   const user = JSON.parse(localStorage.getItem('talla_user'));
   
+  console.log('Save button clicked');
+  console.log('User data:', user);
+  
   if (!user || !user.email) {
     if (confirm('You need to be logged in to save your scent. Would you like to sign in now?')) {
       // Save current scent to localStorage temporarily so user doesn't lose work
@@ -312,6 +315,8 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     price: price
   };
   
+  console.log('Sending scent data:', scentData);
+  
   try {
     const response = await fetch('api/scents.php', {
       method: 'POST',
@@ -319,7 +324,19 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
       body: JSON.stringify(scentData)
     });
     
-    const result = await response.json();
+    const responseText = await response.text();
+    console.log('Raw response:', responseText);
+    
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      console.error('Failed to parse JSON:', e);
+      alert('Server error. Check console for details.');
+      return;
+    }
+    
+    console.log('Parsed result:', result);
     
     if (result.success) {
       alert(`"${name}" has been saved to your account!\n\nView it in My Account → My Scents`);
@@ -328,7 +345,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     }
   } catch (error) {
     console.error('Error saving scent:', error);
-    alert('Failed to save scent. Please try again.');
+    alert('Failed to save scent. Please try again. Error: ' + error.message);
   }
 });
 
