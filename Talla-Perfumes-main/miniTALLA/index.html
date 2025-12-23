@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="miniTALLA - Luxury Perfumes">
+  <title>miniTALLA | Luxury Perfumes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">TALLA</a>
+      <ul class="nav-links">
+        <li><a href="products.html" class="nav-link">Shop</a></li>
+        <li><a href="scent-lab.html" class="nav-link">Scent Lab</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+
+      </ul>
+      <div class="nav-icons">
+        <a href="login.html" class="nav-icon" title="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <div class="nav-icon" id="cartBtn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div id="particles" class="particles"></div>
+    <div class="floating-bottles">
+      <div class="bottle"><i class="fa-solid fa-spa"></i></div>
+      <div class="bottle"><i class="fa-solid fa-sparkles"></i></div>
+      <div class="bottle"><i class="fa-solid fa-gem"></i></div>
+      <div class="bottle"><i class="fa-solid fa-moon"></i></div>
+      <div class="bottle"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tagline">AI-Powered Luxury Fragrances</p>
+      <h1 class="hero-title">Find Your <span class="text-gradient">Signature Scent</span></h1>
+      <p class="hero-subtitle">Discover personalized perfumes or create your own unique fragrance in our Scent Lab</p>
+      <div class="hero-buttons">
+        <a href="products.html" class="btn btn-primary"><i class="fa-solid fa-sparkles"></i> Shop Now</a>
+        <a href="scent-lab.html" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> Create Your Own</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- New & Trending Section -->
+  <section class="section" id="new-drops">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Just Arrived</p>
+        <h2 class="section-title">New & <span class="text-gradient">Trending</span></h2>
+        <p class="section-subtitle">Fresh releases that are making waves</p>
+      </div>
+      <div class="product-grid" id="newDropsGrid">
+        <!-- Products loaded via JS -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Categories Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Explore</p>
+        <h2 class="section-title">Scent <span class="text-gradient">Families</span></h2>
+      </div>
+      <div class="categories-grid">
+        <div class="category-card" onclick="window.location.href='products.html?category=floral'">
+          <div class="category-icon"><img src="images/floral.png" alt="Floral"></div>
+          <div class="category-content">
+            <h3 class="category-name">Floral</h3>
+            <p class="category-count">Romantic & Elegant</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=woody'">
+          <div class="category-icon"><img src="images/Woody.png" alt="Woody"></div>
+          <div class="category-content">
+            <h3 class="category-name">Woody</h3>
+            <p class="category-count">Bold & Earthy</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=oriental'">
+          <div class="category-icon"><img src="images/Oriental.png" alt="Oriental"></div>
+          <div class="category-content">
+            <h3 class="category-name">Oriental</h3>
+            <p class="category-count">Warm & Spicy</p>
+          </div>
+        </div>
+        <div class="category-card" onclick="window.location.href='products.html?category=fresh'">
+          <div class="category-icon"><img src="images/Fresh.png" alt="Fresh"></div>
+          <div class="category-content">
+            <h3 class="category-name">Fresh</h3>
+            <p class="category-count">Light & Clean</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>Join the <span class="text-gradient">TALLA</span> Family</h2>
+      <p>Get exclusive drops, personalized recommendations, and 15% off your first order</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">TALLA</div>
+        <div class="footer-links">
+          <a href="products.html" class="footer-link">Shop</a>
+          <a href="scent-lab.html" class="footer-link">Scent Lab</a>
+          <a href="cart.html" class="footer-link">Cart</a>
+          <a href="login.html" class="footer-link">Login</a>
+        </div>
+        <p class="copyright">© 2025 TALLA. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="mini-cart" id="miniCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Bag</h3>
+      <span class="cart-close" id="cartClose">×</span>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary" style="width:100%">View Bag</a>
+      <a href="checkout.html" class="btn btn-secondary" style="width:100%; margin-top:0.5rem">Checkout</a>
+    </div>
+  </div>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>
