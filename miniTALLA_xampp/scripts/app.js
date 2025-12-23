@@ -134,6 +134,32 @@ function initNavbar() {
       navbar.classList.remove('scrolled');
     }
   });
+  
+  // Initialize mobile menu
+  initMobileMenu();
+}
+
+// Mobile hamburger menu
+function initMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  
+  if (!hamburger || !mobileMenu) return;
+  
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  });
+  
+  // Close menu when clicking a link
+  mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
 }
 
 // Particles initialization

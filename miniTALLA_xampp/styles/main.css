@@ -54,6 +54,82 @@ h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .nav-icon:hover { color: var(--color-gold); }
 .cart-count { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; background: var(--color-rose-gold); color: white; font-size: 0.7rem; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
+/* Mobile Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 250;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-light-gray);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger:hover span {
+  background: var(--color-gold);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(13, 13, 13, 0.98);
+  z-index: 199;
+  padding-top: 100px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu .mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.mobile-menu .mobile-nav-link {
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+  color: var(--color-light-gray);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.1em;
+}
+
+.mobile-menu .mobile-nav-link:hover {
+  color: var(--color-gold);
+}
+
 /* Hero */
 .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--gradient-dark); padding-top: 80px; }
 .hero::before { 
@@ -289,6 +365,8 @@ input::placeholder { color: var(--color-medium-gray); }
 }
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-menu { display: block; }
   .hero-buttons { flex-direction: column; align-items: center; }
   .categories-grid { grid-template-columns: 1fr; }
   .mini-cart { width: 100%; right: -100%; }
